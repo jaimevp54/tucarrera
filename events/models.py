@@ -10,6 +10,8 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFie
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 
+from djmoney.models.fields import MoneyField
+
 
 class RaceIndexPage(Page):
     intro = RichTextField(blank=True)
@@ -35,9 +37,7 @@ class RacePageTag(TaggedItemBase):
 
 
 class RaceTagIndexPage(Page):
-
     def get_context(self, request):
-        # Get races related to tags
         tag = request.GET.get('tag')
         race_pages = RacePage.objects.filter(tags__name=tag)
 
@@ -48,26 +48,49 @@ class RaceTagIndexPage(Page):
 
 
 class RacePage(Page):
-
-    date = models.DateField("Post date")
-    intro = models.CharField(max_length=250)
-    body = RichTextField(blank=True)
+    is_international = models.BooleanField(verbose_name="Internacional")
+    distance = models.IntegerField(verbose_name="Distancia (Km)")
+    cost = MoneyField(
+        verbose_name="Costo",
+        max_digits=10,
+        decimal_places=3,
+        default_currency='DOP',
+        currency_choices=(('USD', 'USD $'), ('DOP', 'DOP $')),
+        null=True,
+        blank=True,
+    )
+    city = models.ForeignKey("cities_light.City", null=True, on_delete=models.SET_NULL)
+    route_description = RichTextField(verbose_name="Detalles de ruta", blank=True)
+    date = models.DateTimeField(verbose_name="Fecha")
+    sign_in = RichTextField(verbose_name="Detalles de inscripcción", blank=True)
+    notes = RichTextField(verbose_name="Informacion adicional", blank=True)
     tags = ClusterTaggableManager(through=RacePageTag, blank=True)
 
     class Meta:
         verbose_name = "carrera"
 
+    parent_page_types = [
+        RaceIndexPage,
+    ]
     search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
+        index.SearchField('distance'),
+        index.SearchField('city'),
+        index.SearchField('date'),
     ]
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
+            FieldPanel('is_international'),
             FieldPanel('date'),
             FieldPanel('tags'),
-        ], heading="Blog information"), FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
+            FieldPanel('cost'),
+            FieldPanel('city'),
+            FieldPanel('route_description'),
+            FieldPanel('sign_in'),
+            FieldPanel('distance'),
+
+        ], heading="Informacion"),
+        FieldPanel('notes', classname="full"),
         InlinePanel('gallery_images', label="Imagenes"),
     ]
 
@@ -90,3 +113,8 @@ class RacePageGalleryImage(Orderable):
         ImageChooserPanel('image'),
         FieldPanel('caption'),
     ]
+
+
+# Define page creation Rules
+RaceIndexPage.subpage_types = [RacePage]
+RacePage.subpage_types = []

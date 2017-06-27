@@ -18,7 +18,6 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -44,6 +43,9 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+    'cities_light',
+    'djmoney',
+    'moneyed',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,7 +91,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tucarrera.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -99,7 +100,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -113,7 +113,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -133,7 +132,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "tucarrera"
@@ -141,3 +139,10 @@ WAGTAIL_SITE_NAME = "tucarrera"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+# Cities Light
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['en', 'es']
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['US', 'DO']
+CITIES_LIGHT_INCLUDE_CITY_TYPES = [
+    'PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT',
+]
