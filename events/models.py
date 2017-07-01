@@ -15,17 +15,22 @@ from djmoney.models.fields import MoneyField
 
 class RaceIndexPage(Page):
     intro = models.TextField(blank=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image', verbose_name="Imagen Principal", on_delete=models.CASCADE, related_name='+',
+        blank=True, null=True,
+    )
 
     class Meta:
         verbose_name = "listado carreras"
 
     content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full")
+        FieldPanel('intro', classname="full"),
+        ImageChooserPanel('image'),
     ]
 
     def get_context(self, request):
         # Get all races
-        race_pages = self.get_children().live().order_by('-first_published_at')
+        race_pages = reversed(self.get_children().live().order_by('racepage'))
 
         context = super(RaceIndexPage, self).get_context(request)
         context['race_pages'] = race_pages

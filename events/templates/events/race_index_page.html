@@ -12,10 +12,10 @@
                 <div class="card card-raised card-background"
                      style="background-image: url(../media/{{ race.main_image.file }})">
                     <div class="card-content">
-                        <h6 class="category text-info">{{ race.distance }} Km</h6>
+                        <h6 class="category text-info">{{ race.distance }} Km - {{ race.date|date:"D d M Y" }}</h6>
                         <h3 class="card-title">{{ race.title }}</h3>
                         <p class="card-description">
-                            {{ race.route_description }}
+                            {{ race.route_description|truncatewords:40 }}
                         </p>
                         <a href="{% pageurl race %}" class="btn btn-warning btn-round">
                             <i class="material-icons">subject</i>Ver M&atilde;s
