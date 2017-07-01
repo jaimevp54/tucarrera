@@ -14,7 +14,7 @@ from djmoney.models.fields import MoneyField
 
 
 class RaceIndexPage(Page):
-    intro = RichTextField(blank=True)
+    intro = models.TextField(blank=True)
 
     class Meta:
         verbose_name = "listado carreras"
@@ -60,7 +60,7 @@ class RacePage(Page):
         blank=True,
     )
     city = models.ForeignKey("cities_light.City", null=True, on_delete=models.SET_NULL)
-    route_description = RichTextField(verbose_name="Detalles de ruta", blank=True)
+    route_description = models.TextField(verbose_name="Detalles de ruta", blank=True)
     date = models.DateTimeField(verbose_name="Fecha")
     sign_in = RichTextField(verbose_name="Detalles de inscripcción", blank=True)
     notes = RichTextField(verbose_name="Informacion adicional", blank=True)
