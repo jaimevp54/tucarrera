@@ -16,7 +16,7 @@ from djmoney.models.fields import MoneyField
 class RaceIndexPage(Page):
     intro = models.TextField(blank=True)
     image = models.ForeignKey(
-        'wagtailimages.Image', verbose_name="Imagen Principal", on_delete=models.CASCADE, related_name='+',
+        'wagtailimages.Image', verbose_name="Imagen Principal", on_delete=models.SET_NULL, related_name='+',
         blank=True, null=True,
     )
 

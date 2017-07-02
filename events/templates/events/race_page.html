@@ -1,33 +1,136 @@
-{% extends "base.html" %}
+{% extends "events/event_base.html" %}
 
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-blogpage{% endblock %}
 
-{% block content %}
-    <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date }}</p>
+{% block event_info %}
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
 
-    <div class="intro">{{ page.intro }}</div>
+            <div class="tab-content">
+                {% for item in page.gallery_images.all %}
+                    <div class="tab-pane {% if forloop.counter == 1 %}active{% endif %}"
+                         id="product-page{{ forloop.counter }}">
+                        <img src="/media/{{ item.image.file }}" width="100%" height="100%"/>
+                    </div>
+                {% endfor %}
+            </div>
 
-    {{ page.body|richtext }}
-
-    {% for item in page.gallery_images.all %}
-        <div style="float: left; margin: 10px">
-            {% image item.image fill-320x240 %}
-            <p>{{ item.caption }}</p>
+            <ul class="nav flexi-nav" role="tablist" id="flexiselDemo1">
+                {% for item in page.gallery_images.all %}
+                    <li {% if forloop.counter == 1 %}class="active"{% endif %}>
+                        <a href="#product-page{{ forloop.counter }}" role="tab" data-toggle="tab"
+                           aria-expanded="false">
+                            <img src="/media/{{ item.image.file }}"/>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-    {% endfor %}
-    {% if page.tags.all.count %}
-        <div class="tags">
-            <h3>Tags</h3>
-            {% for tag in page.tags.all %}
-                <a href="{% slugurl 'etiquetas' %}?tag={{ tag }}">
-                    <button type="button">{{ tag }}</button>
-                </a>
-            {% endfor %}
-        </div>
-    {% endif %}
-    <p><a href="{{ page.get_parent.url }}">Volver a la lista</a></p>
+        <div class="col-md-6 col-sm-6">
+            <h2 class="title">{{ page.title }}</h2>
+            <h3 class="main-price">{{ page.distance }}Km - {{ page.date|date:"D d M Y" }}</h3>
+            <div id="acordeon">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-border panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                <h4 class="panel-title">
+                                    Descripcci&oacute;n
+                                    <i class="material-icons">keyboard_arrow_down</i>
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <p>{{ page.route_description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-border panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                               aria-controls="collapseOne">
+                                <h4 class="panel-title">
+                                    Detalles
+                                    <i class="material-icons">keyboard_arrow_down</i>
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <table class="table table-bordered text-center">
+                                    <tr>
+                                        <th class="col-sm-3">Es Internacional
+                                        </th>
+                                        <td class="col-sm-9">
+                                            {% if page.is_international == True %}
+                                                Si
+                                            {% else %}
+                                                No
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-sm-3">Distancia</th>
+                                        <td class="col-sm-9">{{ page.distance }}Km</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-sm-3">Precio</th>
+                                        <td class="col-sm-9">{{ page.cost }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-sm-3">Ciudad</th>
+                                        <td class="col-sm-9">{{ page.city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-sm-3">Fecha
+                                        </th>
+                                        <td class="col-sm-9">{{ page.date|date:"D d M Y" }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="panel panel-border panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                               aria-controls="collapseOne">
+                                <h4 class="panel-title">
+                                    Informaci&oacute;n sobre inscripcci&oacute;n
+                                    <i class="material-icons">keyboard_arrow_down</i>
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p>{{ page.sign_in|richtext }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-border panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                               aria-controls="collapseOne">
+                                <h4 class="panel-title">
+                                    Notas adicionales
+                                    <i class="material-icons">keyboard_arrow_down</i>
+                                </h4>
+                            </a>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p>{{ page.notes|richtext }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!--  end acordeon -->
+
+        </div>
+    </div>
 {% endblock %}
