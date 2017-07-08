@@ -1,5 +1,5 @@
 {% load wagtailcore_tags %}
-<nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+<nav class="navbar navbar-default navbar-transparent navbar-fixed-top navbar-color-on-scroll" color-on-scroll="100">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -12,6 +12,17 @@
             </button>
             <a class="navbar-brand" href="{% slugurl 'carreras' %}">Tu Carrera</a>
         </div>
+        <!-- classic modal -->
+
+        {#        <div class="navbar-header navbar-right">#}
+        {#            <a class="navbar-brand" data-toggle="modal" data-target="#myModal">#}
+        {#                <i class="material-icons">search</i>#}
+        {#                Search#}
+        {#            </a>#}
+        {#        </div>#}
+        {#        <button class="nav navbar-nav navbar-right" data-toggle="modal" data-target="#myModal">#}
+        {#            Classic modal#}
+        {#        </button>#}
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -29,6 +40,34 @@
                     </ul>
                 </li>
             </ul>
+            <div class="navbar-header pull-right">
+                <a href="#" class="navbar-brand" data-toggle="modal" data-target="#myModal">
+                    <i class="material-icons">search</i>
+                    Search
+                </a>
+            </div>
         </div>
     </div>
 </nav>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                </button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p>Far far away...
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-simple">Nice Button</button>
+                <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
