@@ -44,12 +44,11 @@
         var calendar = $('#calendar').fullCalendar({
             header: {
                 left: 'title',
-                center: 'agendaDay,agendaWeek,month',
                 right: 'prev,next today'
             },
-            editable: true,
+            editable: false,
             firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
-            selectable: true,
+            selectable: false,
             defaultView: 'month',
 
             axisFormat: 'h:mm',
@@ -64,8 +63,8 @@
                 week: "MMMM yyyy", // September 2009
                 day: 'MMMM yyyy'                  // Tuesday, Sep 8, 2009
             },
-            allDaySlot: false,
-            selectHelper: true,
+            allDaySlot: true,
+            selectHelper: false,
             select: function (start, end, allDay) {
                 var title = prompt('Event Title:');
                 if (title) {
@@ -81,82 +80,44 @@
                 }
                 calendar.fullCalendar('unselect');
             },
-            droppable: true, // this allows things to be dropped onto the calendar !!!
-            drop: function (date, allDay) { // this function is called when something is dropped
-
-                // retrieve the dropped element's stored Event Object
-                var originalEventObject = $(this).data('eventObject');
-
-                // we need to copy it, so that multiple events don't have a reference to the same object
-                var copiedEventObject = $.extend({}, originalEventObject);
-
-                // assign it the date that was reported
-                copiedEventObject.start = date;
-                copiedEventObject.allDay = allDay;
-
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-                // is the "remove after drop" checkbox checked?
-                if ($('#drop-remove').is(':checked')) {
-                    // if so, remove the element from the "Draggable Events" list
-                    $(this).remove();
-                }
-
-            },
-
-            events: [
-                {
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1)
+            events: {
+                url: '{% url "filter_events" %}',
+                type: 'GET',
+                data: {
+                    distance_min: $("#distance-min").val(),
+                    distance_max: $("#distance-max").val()
                 },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d - 3, 16, 0),
-                    allDay: false,
-                    className: 'info'
+                error: function () {
+                    alert('Los sentimos! Hubo un problema al realizar la busqueda.');
                 },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d + 4, 16, 0),
-                    allDay: false,
-                    className: 'info'
-                },
-                {
-                    title: 'Meeting',
-                    start: new Date(y, m, d, 10, 30),
-                    allDay: false,
-                    className: 'important'
-                },
-                {
-                    title: 'Lunch',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    allDay: false,
-                    className: 'important'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d + 1, 19, 0),
-                    end: new Date(y, m, d + 1, 22, 30),
-                    allDay: false,
-                },
-                {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: 'http://google.com/',
-                    className: 'success'
-                }
-            ],
+                color: 'green',   // a non-ajax option
+                textColor: 'black' // a non-ajax option
+            }
+
         });
 
 
-    });
-
+        $("#btn-filter").click(function () {
+            var $calendar = $('#calendar');
+            $calendar.empty();
+            $calendar.fullCalendar({
+                events: {
+                    url: '{% url "filter_events" %}',
+                    type: 'GET',
+                    data: {
+                        distance_min: $("#distance-min").val(),
+                        distance_max: $("#distance-max").val()
+                    },
+                    error: function () {
+                        alert('Los sentimos! Hubo un problema al realizar la busqueda.');
+                    },
+                    color: 'green',   // a non-ajax option
+                    textColor: 'black' // a non-ajax option
+                }
+            })
+        })
+    })
+    ;
 </script>
 <style>
 
