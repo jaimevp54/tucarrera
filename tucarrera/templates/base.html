@@ -28,8 +28,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/material-kit.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/calendar/fullcalendar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/tucarrera.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+
+    <link rel="stylesheet" type="text/css" href='{% static "css/calendar/fullcalendar.css" %}'/>
+
     {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
     {% endblock %}
@@ -55,8 +58,14 @@
 <script type="text/javascript" src="{% static 'js/material-kit.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/tucarrera.js' %}"></script>
 
+{# Calendar #}
+<script src='{% static "js/jquery.min.js" %}'></script>
+<script src='{% static "js/calendar/jquery-ui.custom.min.js" %}'></script>
+<script src='{% static "js/calendar/fullcalendar.js" %}'></script>
+
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
 {% endblock %}
+{% include "search_modal.html" %}
 </body>
 </html>
