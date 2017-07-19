@@ -1,5 +1,5 @@
 {% load wagtailcore_tags %}
-<nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+<nav class="navbar navbar-default navbar-transparent navbar-fixed-top navbar-color-on-scroll" color-on-scroll="100">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -15,6 +15,12 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="" data-toggle="modal" data-target="#myModal">
+                        <i class="material-icons">search</i>
+                        Buscar
+                    </a>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="material-icons">view_day</i> Eventos
@@ -32,3 +38,4 @@
         </div>
     </div>
 </nav>
+
