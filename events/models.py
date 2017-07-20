@@ -81,6 +81,7 @@ class RacePage(Page):
         index.SearchField('distance'),
         index.SearchField('city'),
         index.SearchField('date'),
+        index.SearchField('cost'),
     ]
 
     content_panels = Page.content_panels + [
