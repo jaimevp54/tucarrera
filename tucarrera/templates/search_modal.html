@@ -14,19 +14,78 @@
                 <div class="col-md-6">
                     <h3>Filtrar por: </h3>
                     <div class="row">
+                        <div class=" col-sm-8">
+                            <label class="control-label">Ciudad</label>
+                            <select id="city" class="selectpicker" data-style="btn btn-primary btn-round"
+                                    title="Single Select"
+                                    data-size="7">
+                                <option value="0" selected> Todas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class=" col-sm-6">
                             <div class="form-group label-floating">
                                 <label class="control-label">Distancia Minima</label>
-                                <input type="number" class="form-control" id="distance-min" value="0">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="distance-min" value="0">
+                                    <span class="input-group-addon"> KM</span>
+                                </div>
                             </div>
                         </div>
                         <div class=" col-sm-6">
                             <div class="form-group label-floating">
+
                                 <label class="control-label">Distancia Maxima</label>
-                                <input type="number" class="form-control" id="distance-max" value="100">
+
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="distance-max" value="100">
+                                    <span class="input-group-addon"> KM</span>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="row">
+                        <div class=" col-sm-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Costo Minimo</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="cost-min" value="0">
+                                    <span class="input-group-addon"> RD$</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-sm-6">
+                            <div class="form-group label-floating">
+                                <label class="control-label">Costo Maximo</label>
+                                <input type="number" class="form-control" id="cost-max" value="20000">
+                                <div class="input-group">
+                                    <span class="input-group-addon"> RD$</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="radio col-sm-3">
+                            <label>
+                                <input type="radio" name="option-scope" value="all" checked>
+                                Todos
+                            </label>
+                        </div>
+                        <div class="radio col-sm-3">
+                            <label>
+                                <input type="radio" name="option-scope" value="international">
+                                Internacionales
+                            </label>
+                        </div>
+                        <div class="radio col-sm-3">
+                            <label>
+                                <input type="radio" name="option-scope" value="national">
+                                Nacionales
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -36,3 +95,11 @@
         </div>
     </div>
 </div>
+<script>
+    var cities = $.getJSON("/cities/do", function (response) {
+        $.each(response, function (index, value) {
+            $("#city").append($('<option></option>').val(value.id).text(value.display_name))
+        })
+        $('.selectpicker').selectpicker('refresh');
+    });
+</script>
