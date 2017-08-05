@@ -1,35 +1,7 @@
+{% load wagtailcore_tags %}
 <footer class="footer">
     <div class="container">
-        <a class="footer-brand" href="#pablo">Tu Carrera</a>
-
-        <ul class="pull-center">
-            <li>
-                <a href="#pablo">
-                    Blog
-                </a>
-            </li>
-            <li>
-                <a href="#pablo">
-                    Contactanos
-                </a>
-            </li>
-        </ul>
-
-        <ul class="social-buttons pull-right">
-            <li>
-                <a href="https://twitter.com/CreativeTim" target="_blank"
-                   class="btn btn-just-icon btn-twitter btn-simple">
-                    <i class="fa fa-twitter"></i>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.facebook.com/CreativeTim" target="_blank"
-                   class="btn btn-just-icon btn-facebook btn-simple">
-                    <i class="fa fa-facebook-square"></i>
-                </a>
-            </li>
-        </ul>
-
+        <a class="footer-brand" href="{% slugurl 'carreras' %}">Tu Carrera</a>
     </div>
 </footer>
 
