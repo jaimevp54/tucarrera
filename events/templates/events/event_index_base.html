@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+{% get_media_prefix as MEDIA_PREFIX %}
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
@@ -8,7 +10,7 @@
 {% block content %}
     {% include 'navbar.html' %}
     <div class="page-header header-filter header-small" data-parallax="true"
-         style="background-image: url(../media/{{ page.image.file }});">
+         style="background-image: url({% get_media_prefix %}{{ page.image.file }});">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">

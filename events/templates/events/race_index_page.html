@@ -1,4 +1,5 @@
 {% extends "events/event_index_base.html" %}
+{% load static %}
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
@@ -10,7 +11,7 @@
         {% with race.specific as race %}
             <div class="col-md-12">
                 <div class="card card-raised card-background"
-                     style="background-image: url(../media/{{ race.main_image.file }})">
+                     style="background-image: url({% get_media_prefix %}{{ race.main_image.file }})">
                     <div class="card-content">
                         <h6 class="category text-info">{{ race.distance }} Km - {{ race.date|date:"D d M Y" }}</h6>
                         <h3 class="card-title">{{ race.title }}</h3>
