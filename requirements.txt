@@ -1,4 +1,6 @@
 beautifulsoup4==4.6.0
+boto3==1.5.6
+botocore==1.8.20
 brotlipy==0.7.0
 certifi==2017.4.17
 cffi==1.11.2
@@ -9,14 +11,17 @@ django-autoslug==1.9.3
 django-cities-light==3.3.0
 django-modelcluster==3.1
 django-money==0.11.4
+django-storages==1.6.5
 django-taggit==0.22.1
 django-treebeard==4.1.2
 djangorestframework==3.6.3
 djcities==0.1
+docutils==0.14
 gunicorn==19.7.1
 html5lib==0.999999999
 idna==2.5
 insultgenerator==0.3
+jmespath==0.9.3
 loremipsum==1.0.5
 olefile==0.44
 Pillow==4.1.1
@@ -24,10 +29,12 @@ progressbar2==3.30.2
 psycopg2==2.7.3
 py-moneyed==0.7.0
 pycparser==2.18
+python-dateutil==2.6.1
 python-decouple==3.0
 python-utils==2.1.0
 pytz==2017.2
 requests==2.18.1
+s3transfer==0.1.12
 six==1.10.0
 Unidecode==0.4.20
 urllib3==1.21.1
